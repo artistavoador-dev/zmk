@@ -43,8 +43,8 @@ static const uint8_t zmk_hid_via_report_desc[] = {
     HID_USAGE_PAGE_2((RAW_USAGE_PAGE & 0xff), (RAW_USAGE_PAGE >> 8)), // Vendor Defined
     HID_USAGE(RAW_USAGE_ID),                                          // Vendor Defined
     HID_COLLECTION(0x01),                                             // Application
-                          // Data to host
-    HID_USAGE(0x62), // Vendor Defined
+                                                                      // Data to host
+    HID_USAGE(0x62),                                                  // Vendor Defined
     HID_LOGICAL_MIN8(0x00), HID_LOGICAL_MAX16(0xFF, 0x00), HID_REPORT_COUNT(RAW_EPSIZE),
     HID_REPORT_SIZE(0x08),
     HID_INPUT(ZMK_HID_MAIN_VAL_DATA | ZMK_HID_MAIN_VAL_VAR | ZMK_HID_MAIN_VAL_ABS),
@@ -325,7 +325,7 @@ _Static_assert((DYNAMIC_KEYMAP_EEPROM_MAX_ADDR) - (DYNAMIC_KEYMAP_MACRO_EEPROM_A
 
 #define NUM_KEYMAP_LAYERS_RAW                                                                      \
     DYNAMIC_KEYMAP_LAYER_COUNT //((uint8_t)(sizeof(keymaps) / ((MATRIX_ROWS) * (MATRIX_COLS) *
-                               //sizeof(uint16_t))))
+                               // sizeof(uint16_t))))
 //
 // This is changed only when the command IDs change,
 // so VIA Configurator can detect compatible firmware.

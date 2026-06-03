@@ -251,7 +251,8 @@ static void kscan_matrix_read_continue(const struct device *dev) {
         else
             data->scan_time += user_debounce.debounce_scan_period_ms * 2;
     } else
-        data->scan_time += user_debounce.debounce_scan_period_ms; // config->debounce_scan_period_ms;
+        data->scan_time +=
+            user_debounce.debounce_scan_period_ms; // config->debounce_scan_period_ms;
 
     k_work_reschedule(&data->work, K_TIMEOUT_ABS_MS(data->scan_time));
 }
