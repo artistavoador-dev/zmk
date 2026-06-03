@@ -87,7 +87,7 @@ static int zmk_battery_update(const struct device *battery) {
 
         // rc = bt_bas_set_battery_level(last_state_of_charge);
         struct bt_conn *conn = destination_connection();
-        rc = bt_bas_set_battery_level_fix(conn, last_state_of_charge);
+        //rc = bt_bas_set_battery_level_fix(conn, last_state_of_charge);
         bt_conn_unref(conn);
 
         if (rc != 0) {
