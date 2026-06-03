@@ -9,6 +9,6 @@ features:
 outputs:
   - usb
   - ble
-  - 24G
+  #- 24G
 
 url: https://www.keychron.com/
