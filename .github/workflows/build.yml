@@ -15,17 +15,13 @@ on:
 
 jobs:
   build:
-    if: ${{ always() }}
     runs-on: ubuntu-latest
     container:
       image: zmkfirmware/zmk-build-arm:stable
-    needs: compile-matrix
-    strategy:
-      matrix:
-        include: ${{ fromJSON(needs.compile-matrix.outputs.include-list) }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Cache west modules
         uses: actions/cache@v4
         env:
@@ -39,25 +35,26 @@ jobs:
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('app/west.yml') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
-        timeout-minutes: 2
-        continue-on-error: true
+
       - name: Initialize workspace (west init)
-        run: west init -l app
+        run: |
+          if [ -d ".west" ]; then rm -rf .west; fi
+          west init -l app
+
       - name: Update modules (west update)
         run: west update
+
       - name: Export Zephyr CMake package (west zephyr-export)
         run: west zephyr-export
-      - name: Build firmware
+
+      - name: Build firmware (Keychron B6 UK)
         run: |
-          west init -l app
-          west update
-          west build -s app -b ${{ matrix.board }} -- ${{ matrix.cmake-args }}
+          west build -s app -b keychron_b6 -- -DSHIELD=keychron_b6_uk
+
       - name: Upload firmware
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ matrix.board }}-zmk
+          name: keychron_b6_uk-zmk
           path: build/zephyr/zmk.*
   compile-matrix:
     if: ${{ always() }}
