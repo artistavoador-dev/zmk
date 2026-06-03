@@ -17,5 +17,10 @@
   "settings": {
     "terminal.integrated.shell.linux": "/bin/bash"
   },
-  "forwardPorts": [3000]
+  "forwardPorts": [3000],
+  "features": {
+    "ghcr.io/devcontainers/features/clang-format:1": {
+      "version": "15"
+    }
+  }
 }
