@@ -49,13 +49,14 @@ jobs:
 
       - name: Build firmware (Keychron B6 UK)
         run: |
-          west build -p -s app -b keychron_b6 -- -DSHIELD=keychron_b6_uk -DZEPHYR_MODULES=/__w/zmk/zmk/app
+          cmake -B build -S app -GNinja -DBOARD=keychron_b6 -DSHIELD=keychron_b6_uk
+          ninja -C build
 
       - name: Upload firmware
         uses: actions/upload-artifact@v4
         with:
           name: keychron_b6_uk-zmk
-          path: build/zephyr/zmk.*
+          path: build/zephyr/*.uf2
   compile-matrix:
     if: ${{ always() }}
     runs-on: ubuntu-latest
