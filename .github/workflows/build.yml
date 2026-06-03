@@ -51,8 +51,7 @@ jobs:
 
       - name: Build firmware (Keychron B6 UK)
         run: |
-          west build -p -s app/boards/shields/keychron/b6/uk -b keychron_bpro -- -DSHIELD=keychron_b6_uk -DZEPHYR_MODULES=/__w/zmk/zmk/app
-        # Nota: Se "keychron_bpro" falhar, substitua por "rtl8762gn_evb" mantendo o caminho "-s" acima.
+          west build -p -s app -b keychron_bpro -- -DSHIELD=keychron_b6_uk -DBOARD_ROOT=/__w/zmk/zmk/app
 
       - name: Upload firmware
         uses: actions/upload-artifact@v4
