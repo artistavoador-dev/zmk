@@ -21,6 +21,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: keychron_bpro  # Garante que está a puxar a branch certa da Keychron
 
       - name: Cache west modules
         uses: actions/cache@v4
@@ -49,14 +51,16 @@ jobs:
 
       - name: Build firmware (Keychron B6 UK)
         run: |
-          cmake -B build -S app -GNinja -DBOARD=keychron_b6 -DSHIELD=keychron_b6_uk
-          ninja -C build
+          west build -p -s app/boards/shields/keychron/b6/uk -b keychron_bpro -- -DSHIELD=keychron_b6_uk -DZEPHYR_MODULES=/__w/zmk/zmk/app
+        # Nota: Se "keychron_bpro" falhar, substitua por "rtl8762gn_evb" mantendo o caminho "-s" acima.
 
       - name: Upload firmware
         uses: actions/upload-artifact@v4
         with:
           name: keychron_b6_uk-zmk
-          path: build/zephyr/*.uf2
+          path: |
+            build/zephyr/*.uf2
+            build/zephyr/*.bin
   compile-matrix:
     if: ${{ always() }}
     runs-on: ubuntu-latest
