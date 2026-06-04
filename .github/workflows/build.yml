@@ -51,7 +51,7 @@ jobs:
 
       - name: Build firmware (Keychron B6 UK)
         run: |
-          west build -p -s app -b keychron -- -DSHIELD=keychron_b6_uk -DZEPHYR_EXTRA_MODULES=/__w/zmk/zmk/app/boards/shields/keychron
+          west build -p -s app -b keychron -- -DSHIELD=keychron_b6_uk -DZMK_EXTRA_MODULES=/__w/zmk/zmk/app/boards/shields/keychron
 
       - name: Upload firmware
         uses: actions/upload-artifact@v4
